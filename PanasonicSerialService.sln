@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanasonicSerialService", "PanasonicSerialService\PanasonicSerialService.csproj", "{2D87D456-8B0A-4AE8-AB77-3324E49775EE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PanasonicSerialServer", "PanasonicSerialServer\PanasonicSerialServer.csproj", "{86F311A2-3A19-4D63-9015-D97B1D358773}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanasonicSerialCommon", "PanasonicSerialCommon\PanasonicSerialCommon.csproj", "{9C066B87-C95E-4E26-8997-F1112CB97445}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanasonicSerialServerApp", "PanasonicSerialServerApp\PanasonicSerialServerApp.csproj", "{407CA3CD-33E3-4F74-9165-8A6A462A2D1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanasonicSerialClient", "PanasonicSerialClient\PanasonicSerialClient.csproj", "{5A68FE5E-7835-440B-AF53-E6A87E641B95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D87D456-8B0A-4AE8-AB77-3324E49775EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D87D456-8B0A-4AE8-AB77-3324E49775EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D87D456-8B0A-4AE8-AB77-3324E49775EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D87D456-8B0A-4AE8-AB77-3324E49775EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F311A2-3A19-4D63-9015-D97B1D358773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F311A2-3A19-4D63-9015-D97B1D358773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F311A2-3A19-4D63-9015-D97B1D358773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F311A2-3A19-4D63-9015-D97B1D358773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C066B87-C95E-4E26-8997-F1112CB97445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C066B87-C95E-4E26-8997-F1112CB97445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C066B87-C95E-4E26-8997-F1112CB97445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C066B87-C95E-4E26-8997-F1112CB97445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{407CA3CD-33E3-4F74-9165-8A6A462A2D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{407CA3CD-33E3-4F74-9165-8A6A462A2D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{407CA3CD-33E3-4F74-9165-8A6A462A2D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{407CA3CD-33E3-4F74-9165-8A6A462A2D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A68FE5E-7835-440B-AF53-E6A87E641B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A68FE5E-7835-440B-AF53-E6A87E641B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A68FE5E-7835-440B-AF53-E6A87E641B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A68FE5E-7835-440B-AF53-E6A87E641B95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C643309-5C1D-4AB4-A55F-58ABEE723D6A}
+	EndGlobalSection
+EndGlobal

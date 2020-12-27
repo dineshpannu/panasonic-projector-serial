@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PanasonicSerialServer": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

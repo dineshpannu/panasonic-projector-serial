@@ -15,7 +15,7 @@ Linux and Mac OS support is possible if there is demand. The core library has be
 
 ### Installing
 
-* Unzip the package and copy all files to a suitable location. For example, C:\Program Files\Panasonic Projector Serial\. We will refer to this as [InstallFolder]
+* Unzip the package and copy all files to a suitable location. For example, `C:\Program Files\Panasonic Projector Serial\`. We will refer to this as **[InstallFolder]**
 
 #### Server installation
 * Open an administrator command prompt.
@@ -26,7 +26,7 @@ Linux and Mac OS support is possible if there is demand. The core library has be
 
 ### Configuration
 #### Server Configuration
-Edit *[InstallFolder]\server\PanasonicSerialService.exe.config*. Configurable items are under <appSettings>.
+Edit ***[InstallFolder]**\server\PanasonicSerialService.exe.config*. Configurable items are under `<appSettings>`.
 
 
 | Key | Purpose | Default |
@@ -48,7 +48,7 @@ LensMemory[1-6] can be configured by setting the aspect ratio it's intended to b
 LensMemory configuration is optional. Once configured, the server will select the correct lens memory to load when given a target aspect ratio. If no aspect ratio is a perfect match, it will select the memory with the closest match. It makes no preference to undershoot or overshoot the target aspect ratio. If LensMemory[1-6] is not configured, the server can still be directed to load a memory by supplying the lens memory slot number to load.
 
 #### Client Configuration
-Edit *[InstallFolder]\client\PanasonicSerialClient.exe.config*. Configurable items are under <appSettings>. All settings can be overridden by command line switches.
+Edit ***[InstallFolder]**\client\PanasonicSerialClient.exe.config*. Configurable items are under `<appSettings>`. All settings can be overridden by command line switches.
 
 | Key | Purpose | Default |
 | --- | ------- | --- |

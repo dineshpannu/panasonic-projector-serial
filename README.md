@@ -15,7 +15,7 @@ Linux and Mac OS support is possible if there is demand. The core library has be
 
 ### Installing
 
-* Unzip the package and copy all files to a suitable location. For example, *C:\Program Files\Panasonic Projector Serial\*. We will refer to this as [InstallFolder]
+* Unzip the package and copy all files to a suitable location. For example, C:\Program Files\Panasonic Projector Serial\. We will refer to this as [InstallFolder]
 
 #### Server installation
 * Open an administrator command prompt.
@@ -184,4 +184,4 @@ Contrinutions happily accepted. Please send a pull request.
 * **Dinesh Pannu** - *Initial work*
 
 ## License
-This project is licensed under GPL - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under GPL - see the [LICENSE](LICENSE) file for details

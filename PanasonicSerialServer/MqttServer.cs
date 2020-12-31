@@ -11,13 +11,13 @@ using PanasonicSerialServer.Queue;
 
 namespace PanasonicSerialServer
 {
-    public class MqttServer
+    public class MqttServer : IDisposable
     {
-        private readonly Config config;
+        private readonly ServerConfig config;
         private readonly JobQueue jobQueue;
         private IMqttServer mqttServer;
 
-        public MqttServer(Config config)
+        public MqttServer(ServerConfig config)
         {
             this.config = config;
             this.jobQueue = new JobQueue(config);
@@ -87,41 +87,57 @@ namespace PanasonicSerialServer
                 $"Message: ClientId = {context.ClientId}, Topic = {context.ApplicationMessage?.Topic},"
                 + $" Payload = {payload}, QoS = {context.ApplicationMessage?.QualityOfServiceLevel},"
                 + $" Retain-Flag = {context.ApplicationMessage?.Retain}");
-            
-
-            // Get Message object
-            //
-            Message message = null;
-            try
-            {
-                message = JsonConvert.DeserializeObject<Message>(payload);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Couldn't deserialize message");
-            }
 
 
-            if (null != message)
+            if (context.ApplicationMessage?.Topic == Topics.RequestAction)
             {
-                // Parse message
+                // Get Message object
                 //
-                IPanasonicCommand panasonicCommand = Commands.GetCommand(message, this.config);
-
-                if (null != panasonicCommand)
+                Message message = null;
+                try
                 {
-                    // Add command to queue
-                    //
-                    this.jobQueue.Add(panasonicCommand);
+                    message = JsonConvert.DeserializeObject<Message>(payload);
                 }
-            }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Couldn't deserialize message");
+                }
 
-            var returnMessage = new MqttApplicationMessageBuilder()
-                .WithTopic(context.ApplicationMessage.Topic)
-                .WithPayload("Message received")
-                .WithExactlyOnceQoS()
-                .Build();
-            this.mqttServer.PublishAsync(returnMessage, CancellationToken.None);
+
+                if (null != message)
+                {
+                    // Parse message
+                    //
+                    IPanasonicCommand panasonicCommand = Commands.GetCommand(message, this.config);
+
+                    if (null != panasonicCommand)
+                    {
+                        // Add command to queue
+                        //
+                        this.jobQueue.Add(panasonicCommand);
+                    }
+                }
+
+                var returnMessage = new MqttApplicationMessageBuilder()
+                    .WithTopic(Topics.ActionPerformed)
+                    .WithPayload("Message received")
+                    .WithExactlyOnceQoS()
+                    .Build();
+                this.mqttServer.PublishAsync(returnMessage, CancellationToken.None);
+            }
+            else if (context.ApplicationMessage?.Topic == Topics.ActionPerformed)
+            {
+                // Safely ignore since we sending these.
+            }
+            else
+            {
+                Log.Error("Unknown topic {Topic}", context.ApplicationMessage?.Topic);
+            }
+        }
+
+        public void Dispose()
+        {
+            this.mqttServer.Dispose();
         }
     }
 }

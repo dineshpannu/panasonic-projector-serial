@@ -8,6 +8,7 @@ using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using Newtonsoft.Json;
+using PanasonicSerialCommon;
 using Serilog;
 
 namespace PanasonicSerialClient
@@ -67,8 +68,7 @@ namespace PanasonicSerialClient
             {
                 Log.Information("Sending message: {Message}", JsonConvert.SerializeObject(this.clientConfig.Message));
                 var mqttMessage = new MqttApplicationMessageBuilder()
-                    .WithTopic("MyTopic")
-                    .WithResponseTopic("PickMe")
+                    .WithTopic(Topics.RequestAction)
                     .WithPayload(JsonConvert.SerializeObject(this.clientConfig.Message))
                     .WithExactlyOnceQoS()
                     .WithRetainFlag()

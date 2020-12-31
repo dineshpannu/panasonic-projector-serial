@@ -46,7 +46,7 @@ namespace PanasonicSerialServer
             Trigger2 = "Trigger2",
             InputFormat3D = "InputFormat3D";
 
-        private static Dictionary<string, Func<Config, IPanasonicCommand>> list = new Dictionary<string, Func<Config, IPanasonicCommand>>()
+        private static Dictionary<string, Func<ServerConfig, IPanasonicCommand>> list = new Dictionary<string, Func<ServerConfig, IPanasonicCommand>>()
         {
             { PowerOn,          (_) => new PanasonicCommand(PowerOn,          "PON", false, 9) },
             { PowerOff,         (_) => new PanasonicCommand(PowerOff,         "POF", false, 20) },
@@ -85,9 +85,9 @@ namespace PanasonicSerialServer
 
         };
 
-        public static IPanasonicCommand GetCommand(Message message, Config config)
+        public static IPanasonicCommand GetCommand(Message message, ServerConfig config)
         {
-            IPanasonicCommand command = list.TryGetValue(message.Command, out Func<Config, IPanasonicCommand> func) ? func(config) : null;
+            IPanasonicCommand command = list.TryGetValue(message.Command, out Func<ServerConfig, IPanasonicCommand> func) ? func(config) : null;
 
             if (null != command)
             {

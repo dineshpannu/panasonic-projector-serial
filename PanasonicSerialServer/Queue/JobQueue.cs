@@ -11,11 +11,9 @@ namespace PanasonicSerialServer.Queue
 {
     public class JobQueue
     {
-        private readonly Config config;
+        private readonly ServerConfig config;
         private readonly ActionBlock<JobInfo> queue;
         private readonly BufferBlock<JobInfo> generalPreQueue;
-        //private readonly BufferBlock<JobInfo> powerPreQueue;
-        //private readonly BufferBlock<JobInfo> aspectPreQueue;
         private readonly BroadcastBlock<JobInfo> powerPreQueue;
         private readonly BroadcastBlock<JobInfo> aspectPreQueue;
 
@@ -30,7 +28,7 @@ namespace PanasonicSerialServer.Queue
         /// most recent command is executed.
         /// </summary>
         /// <param name="config"></param>
-        public JobQueue(Config config)
+        public JobQueue(ServerConfig config)
         {
             this.config = config;
 
@@ -50,9 +48,8 @@ namespace PanasonicSerialServer.Queue
             this.generalPreQueue.LinkTo(this.queue);
 
 
-            // Pre-queue for power on/off commands
+            // Pre-queue for power on/off commands. Limited to 1 command (the most recent command).
             //
-            //this.powerPreQueue = new BufferBlock<JobInfo>(new DataflowBlockOptions
             this.powerPreQueue = new BroadcastBlock<JobInfo>(_ => _, new DataflowBlockOptions
             {
                 BoundedCapacity = 1
@@ -60,9 +57,8 @@ namespace PanasonicSerialServer.Queue
             this.powerPreQueue.LinkTo(this.queue);
 
 
-            // Pre-queue for aspect ratio change commands
+            // Pre-queue for aspect ratio change commands. Limited to 1 command (the most recent command).
             //
-            //this.aspectPreQueue = new BufferBlock<JobInfo>(new DataflowBlockOptions
             this.aspectPreQueue = new BroadcastBlock<JobInfo>(_ => _, new DataflowBlockOptions
             {
                 BoundedCapacity = 1

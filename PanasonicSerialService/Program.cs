@@ -17,7 +17,7 @@ namespace PanasonicSerialService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new PanasonicSerialService()
             };
             ServiceBase.Run(ServicesToRun);
         }

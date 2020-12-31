@@ -22,14 +22,14 @@ namespace PanasonicSerialServer
 
         private static LensEnum? lensMemoryState = null;
 
-        private readonly Config config;
+        private readonly ServerConfig config;
 
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="config"></param>
-        public SerialRunner(Config config)
+        public SerialRunner(ServerConfig config)
         {
             this.config = config;
         }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PanasonicSerialCommon;
 using PanasonicSerialServer;
 using Serilog;
 
@@ -23,11 +22,11 @@ namespace PanasonicSerialServerApp
             Log.Debug("Hello");
 
 
-            Config config = Config.Load();
+            ServerConfig config = ServerConfig.Load();
 
 
-            MqttServer mqttSErver = new MqttServer(config);
-            mqttSErver.CreateServer();
+            MqttServer mqttServer = new MqttServer(config);
+            mqttServer.CreateServer();
 
             Log.Information("MQTT server started");
 

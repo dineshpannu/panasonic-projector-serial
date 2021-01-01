@@ -72,14 +72,7 @@ namespace PanasonicSerialClient
             }
             catch (Exception ex)
             {
-                if (ex.GetType() == typeof(MQTTnet.Exceptions.MqttCommunicationException))
-                {
-                    Log.Error("Could not connect to {Server}:{Port}", clientConfig.Host, clientConfig.Port);
-                }
-                else
-                {
-                    Log.Error("We've had an issue: {Message} {InnerMessage}", ex.Message, ex.InnerException?.Message);
-                }
+                Log.Error("We've had an issue: {Message} {InnerMessage}", ex.Message, ex.InnerException?.Message);
             }
 
         }

@@ -22,7 +22,7 @@ namespace PanasonicSerialClient
             this.clientConfig = clientConfig;
         }
 
-        public void Run()
+        public void Run(Message message)
         { 
             Log.Information("Creating MQTT client");
 
@@ -50,26 +50,29 @@ namespace PanasonicSerialClient
                 Console.WriteLine();
             });
 
+
             // Create TCP based options using the builder.
+            //
             var mqttClientOptions = new MqttClientOptionsBuilder()
                 .WithClientId("PanasonicSerialClient")
                 .WithTcpServer(this.clientConfig.Host, this.clientConfig.Port)
                 .Build();
+
 
             Log.Information("Connecting to server {Server}:{Port}", clientConfig.Host, clientConfig.Port);
             var connectTask = mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None); // Since 3.0.5 with CancellationToken
             connectTask.Wait();
 
 
+
             // Send command
             //
-
             if (mqttClient.IsConnected)
             {
-                Log.Information("Sending message: {Message}", JsonConvert.SerializeObject(this.clientConfig.Message));
+                Log.Information("Sending message: {Message}", JsonConvert.SerializeObject(message));
                 var mqttMessage = new MqttApplicationMessageBuilder()
                     .WithTopic(Topics.RequestAction)
-                    .WithPayload(JsonConvert.SerializeObject(this.clientConfig.Message))
+                    .WithPayload(JsonConvert.SerializeObject(message))
                     .WithExactlyOnceQoS()
                     .WithRetainFlag()
                     .Build();
@@ -80,7 +83,7 @@ namespace PanasonicSerialClient
             }
             else
             {
-                Log.Information("Could not connect to {Server}:{Port}", clientConfig.Host, clientConfig.Port);
+                Log.Error("Could not connect to {Server}:{Port}", clientConfig.Host, clientConfig.Port);
             }
         }
     }

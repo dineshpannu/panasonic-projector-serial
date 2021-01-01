@@ -54,27 +54,32 @@ namespace PanasonicSerialClient
             }
 
 
+            // Create config
+            //
+            ClientConfig clientConfig = new ClientConfig(options.Host, options.Port);
+
             try
             {
-                // Create config
+                // Connect to MQTT server
                 //
+                MqttClient mqttClient = new MqttClient(clientConfig);
                 Message message = new Message
                 {
                     Command = options.Command,
                     Option = options.CommandOption
                 };
-                ClientConfig clientConfig = new ClientConfig(options.Host, options.Port, message);
-
-
-                // Connect to MQTT server
-                //
-                MqttClient mqttClient = new MqttClient(clientConfig);
-                mqttClient.Run();
-
+                mqttClient.Run(message);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "We've had an issue");
+                if (ex.GetType() == typeof(MQTTnet.Exceptions.MqttCommunicationException))
+                {
+                    Log.Error("Could not connect to {Server}:{Port}", clientConfig.Host, clientConfig.Port);
+                }
+                else
+                {
+                    Log.Error("We've had an issue: {Message} {InnerMessage}", ex.Message, ex.InnerException?.Message);
+                }
             }
 
         }

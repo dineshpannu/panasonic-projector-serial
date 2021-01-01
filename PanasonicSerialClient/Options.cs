@@ -13,10 +13,10 @@ namespace PanasonicSerialClient
         [Option('d', "debug", Required = false, HelpText = "Enable debug output.")]
         public bool Debug { get; set; }
 
-        [Option('h', "host", Required = false, Default = "localhost", HelpText = "IP address of PanasonicSerialServer.")]
+        [Option('h', "host", Required = false, HelpText = "IP address of PanasonicSerialServer.")]
         public string Host { get; set; }
         
-        [Option('p', "port", Required = false, Default = CommonConfig.DefaultServerPort, HelpText = "Port for PanasonicSerialServer.")]
+        [Option('p', "port", Required = false, HelpText = "Port for PanasonicSerialServer.")]
         public int Port { get; set; }
 
         [Value(0, MetaName = "Command", Required = true, HelpText = "Serial command to send.")]

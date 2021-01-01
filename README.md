@@ -1,8 +1,12 @@
 # panasonic-projector-serial
 
-This project aims to simplify controlling your serial connected Panasonic projector by providing a reliable IP bridge to communicate over. It comes in 2 parts: a service exposing a MQTT server, and a command line client to send commands to the service. 
+This project aims to simplify controlling your serial connected Panasonic projector by providing a reliable MQTT based IP bridge to communicate over. It comes in 2 parts: a service exposing a MQTT server, and a command line client to send commands to the server. 
 
-It has been designed for operation in conjunction with MadVR to control aspect ratio lens memories. In particular, it will buffer successive lens memory commands while a lens zoom is in operation so that only the most recent aspect ratio change triggers a lens memory load.
+It has been designed for operation in conjunction with MadVR to control aspect ratio lens memories. In particular, it will buffer successive lens memory load commands while a lens zoom is in operation so that only the most recent aspect ratio change triggers a lens memory load.
+
+Common use cases:
+* Allow MadVR to change lens memory with aspect ratio changes
+* Control projector from home automation systems over MQTT. Hubitat driver forthcoming.
 
 ## Getting Started
 Download the latest package zip file. This contains both the service and the client. The service will need to be run on a PC connected to the projector. The client can be executed from any networked PC, but we assume it will be the same PC as is running the service.
@@ -57,6 +61,7 @@ Edit ***[InstallFolder]**\client\PanasonicSerialClient.exe.config*. Configurable
 
 
 ### Usage
+#### Command Line Client Usage
 With the server installed and operational, we can send it commands using the command line client.
 
 ```
@@ -79,13 +84,22 @@ Example to load lens memory matching 2.00:1 aspect ratio:
 ```
 
 
-
-#### Switches
+##### Command Line Client Switches
 | Switch | Purpose | Default |
 | ------ | ------- | ------- |
 | -d, --debug | Enable debug output to console and log file | false |
 | -h, --host | IP address of PanasonicSerialServer | localhost |
 | -p, --port | Port for server | 8889 |
+
+
+#### MQTT Usage
+Connect to MQTT server with no certificate, TLS, username or password. Send JSON in the following format to topic ```RequestAction```:
+```
+{
+  "Command": "LensMemoryLoad",
+  "Option": "2.35:1"
+}
+```
 
 #### Commands
 | Command | Command Option | Option Definition |
@@ -163,6 +177,9 @@ Example to load lens memory matching 2.00:1 aspect ratio:
 | | DIFI1=+00001 | Native |
 | | DIFI1=+00003 | Side by side |
 | | DIFI1=+00004 | Top and bottom |
+
+
+
 
 ### Logging
 #### Server logging

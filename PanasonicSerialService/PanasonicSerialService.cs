@@ -29,19 +29,32 @@ namespace PanasonicSerialService
         /// <param name="args"></param>
         protected override void OnStart(string[] args)
         {
-            // Setup logging
-            //
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Debug()
-                .WriteTo.EventLog("Panasonic Serial Service", manageEventSource:true)
-                .CreateLogger();
-            Log.Information("Starting PanasonicSerialService");
-
-
             // Read config
             //
             ServerConfig config = ServerConfig.Load();
+
+
+            // Setup logging
+            //
+            if (config.IsDebug)
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.Debug()
+                    .WriteTo.EventLog("Panasonic Serial Service", manageEventSource: true)
+                    .CreateLogger();
+            }
+            else
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .WriteTo.Debug()
+                    .WriteTo.EventLog("Panasonic Serial Service", manageEventSource: true)
+                    .CreateLogger();
+            }
+            Log.Information("Starting PanasonicSerialService");
+
+
 
 
             // Create MQTT server

@@ -35,6 +35,7 @@ namespace PanasonicSerialClient
                 "PanasonicSerialClient.log");
 
             if (options.Debug)
+
             {
                 Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Debug()

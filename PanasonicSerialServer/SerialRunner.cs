@@ -18,7 +18,7 @@ namespace PanasonicSerialServer
         private const StopBits ComStopBits = StopBits.One;
 
         private readonly byte[] STX = new byte[] { 0x02 };
-        private readonly byte[] ETX = new byte[] { 0x03 };
+        private readonly byte[] RTX = new byte[] { 0x03 };
 
         private static LensEnum? lensMemoryState = null;
 
@@ -40,24 +40,30 @@ namespace PanasonicSerialServer
             if (this.ShouldExecute(command))
             {
                 string serialCommand = this.CreateSerialCommand(command);
-                Log.Information("SerialRunner sending command: {Command}", serialCommand);
+                Log.Information("SerialRunner sending command: {Command} to {ComPort}", serialCommand, config.ComPort);
 
 #if !DEBUG
-            SerialPort serialPort = new SerialPort(config.ComPort, BaudRate, ComParity, DataBits, ComStopBits);
-            serialPort.Open();
-            serialPort.WriteLine($"{STX}{serialCommand}{ETX}");
-                
-            string reply = serialPort.ReadLine();
+                SerialPort serialPort = new SerialPort(config.ComPort, BaudRate, ComParity, DataBits, ComStopBits);
+                serialPort.Open();
 
-            Log.Debug("Got reply: [{Reply}]", reply);
+                //serialPort.WriteLine($"{STX}{serialCommand}{RTX}");
+                serialPort.Write(STX, 0, 1);
+                serialPort.Write(serialCommand);
+                serialPort.Write(RTX, 0, 1);
+
+                serialPort.Close();
+
+                //string reply = serialPort.ReadLine();
+                //Log.Debug("Got reply: [{Reply}]", reply);
 #endif
 
                 this.SetState(command);
 
+                Log.Debug("Command has PauseDuration of {PauseDuration} seconds", command.PauseDuration);
                 if (command.PauseDuration > 0)
                 {
                     // Pause before exiting to give projector time to focus - this mechanism is used to help us queue lens commands
-                    Log.Information("Pausing for {ShiftDuration} seconds", command.PauseDuration);
+                    Log.Information("Pausing for {PauseDuration} seconds", command.PauseDuration);
                     Thread.Sleep(command.PauseDuration * 1000);
                     Log.Debug("Finished pause.");
                 }

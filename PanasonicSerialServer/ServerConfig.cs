@@ -14,6 +14,7 @@ namespace PanasonicSerialServer
     public class ServerConfig
     {
         private const string ComPortKey = "ComPort";
+        private const string DebugKey = "Debug";
         private const string DefaultComPort = "COM1";
 
         /// <summary>
@@ -21,6 +22,7 @@ namespace PanasonicSerialServer
         /// </summary>
         public int ServerPort { get; set; } = CommonConfig.DefaultServerPort;
         public string ComPort { get; set; }
+        public bool IsDebug { get; set; } = false;
         public Dictionary<LensEnum, double> LensAspectRatios { get; set; } = new Dictionary<LensEnum, double>();
 
 
@@ -31,6 +33,11 @@ namespace PanasonicSerialServer
             if (int.TryParse(ConfigurationManager.AppSettings[CommonConfig.ServerPortKey], out int serverPort))
             {
                 config.ServerPort = serverPort;
+            }
+
+            if (string.Compare("true", ConfigurationManager.AppSettings[DebugKey], true) == 0)
+            {
+                config.IsDebug = true;
             }
 
             config.LensAspectRatios[LensEnum.LensMemory1] = AspectRatio.Parse(ConfigurationManager.AppSettings[LensEnum.LensMemory1.ToString()]);

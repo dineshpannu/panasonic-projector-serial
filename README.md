@@ -9,7 +9,7 @@ Common use cases:
 * Control projector from home automation systems over MQTT. Hubitat driver forthcoming.
 
 ## Getting Started
-Download the latest package service and client zip files. The service will need to be run on a PC connected to the projector. The client can be executed from any networked PC, but we assume it will be the same PC as is running the service.
+Download the latest service and client zip files. The service will need to be run on a PC connected to the projector. The client can be executed from any networked PC, but we assume it will be the same PC as is running the service.
 
 ### Prerequisites
 * A Windows PC connected to your projector via serial cable. If a USB-serial adaptor is used, a FTDI based chipset is recommended.
